@@ -9,7 +9,7 @@ class ConversorTempo implements Conversor {
         'minutos->segundos',
         'minutos->horas',
         'horas->segundos',
-        'horas->minutos',
+        'horas->minutos'
     ];
 
     public function converter($valor, $de, $para): float {

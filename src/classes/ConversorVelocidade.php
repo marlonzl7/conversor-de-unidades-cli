@@ -9,7 +9,7 @@ class ConversorVelocidade implements Conversor {
         'kmh->ms',
         'kmh->mph',
         'mph->ms',
-        'mph->kmh',
+        'mph->kmh'
     ];
 
     public function converter($valor, $de, $para): float {

@@ -7,22 +7,22 @@ class ConversorComprimento implements Conversor {
         'milimetro' => [
             'centimetro' => 0.1,
             'metro' => 0.001,
-            'quilometro' => 0.000001,
+            'quilometro' => 0.000001
         ],
         'centimetro' => [
             'milimetro' => 10,
             'metro' => 0.01,
-            'quilometro' => 0.00001,
+            'quilometro' => 0.00001
         ],
         'metro' => [
             'quilometro' => 0.001,
             'centimetro' => 100,
-            'milimetro' => 1000,
+            'milimetro' => 1000
         ],
         'quilometro' => [
             'milimetro' => 1000000,
             'centimetro' => 100000,
-            'metro' => 1000,
+            'metro' => 1000
         ],
     ];
 

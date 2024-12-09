@@ -9,7 +9,7 @@ class ConversorTemperatura implements Conversor {
         'celsius->kelvin',
         'kelvin->celsius',
         'fahrenheit->kelvin',
-        'kelvin->fahrenheit',
+        'kelvin->fahrenheit'
     ];
 
     public function converter($valor, $de, $para): float {

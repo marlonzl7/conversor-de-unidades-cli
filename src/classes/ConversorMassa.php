@@ -8,13 +8,13 @@ class ConversorMassa implements Conversor {
             'quilograma' => 0.001,
         ],
         'quilograma' => [
-            'grama' => 1000,
+            'grama' => 1000
         ],
     ];
 
     private $conversoesSuportadas = [
         'grama->quilograma',
-        'quilograma->grama,'
+        'quilograma->grama'
     ];
 
     public function converter($valor, $de, $para): float {

@@ -14,7 +14,7 @@ class ConversorVolume implements Conversor {
 
     private $conversoesSuportadas = [
         'mililitro->litro',
-        'litro->mililitro',
+        'litro->mililitro'
     ];
 
     public function converter($valor, $de, $para): float {
