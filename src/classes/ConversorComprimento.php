@@ -29,7 +29,7 @@ class ConversorComprimento implements Conversor {
     private $conversoesSuportadas = [
         'milimetro->centimetro',
         'milimetro->metro',
-        'millimetro->quilometro',
+        'milimetro->quilometro',
         'centimetro->milimetro',
         'centimetro->metro',
         'centimetro->quilometro',
