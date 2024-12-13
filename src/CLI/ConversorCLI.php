@@ -153,7 +153,9 @@ class ConversorCLI {
                     $conversor = ConversorFactory::criarConversor($grandeza);
                     $conversoes = $conversor->getConversoesSuportadas();
                     
-                    print_r($conversoes);
+                    foreach($conversoes as $conversao) {
+                        echo $conversao;
+                    }
 
                     break;
 
