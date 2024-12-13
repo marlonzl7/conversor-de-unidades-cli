@@ -154,7 +154,7 @@ class ConversorCLI {
                     $conversoes = $conversor->getConversoesSuportadas();
                     
                     foreach($conversoes as $conversao) {
-                        echo $conversao;
+                        echo $conversao . "\n";
                     }
 
                     break;
