@@ -6,7 +6,7 @@ class ConversorCLI {
     private $conversor;
 
     public function exibirMenu() {
-        echo "\033[1;34m=== Conversor de Unidades ===\033[0m\n";
+        echo colorize("=== Conversor de Unidades ===", "1;33") . "\n";
         echo "[1] Comprimento\n";
         echo "[2] Massa\n";
         echo "[3] Temperatura\n";
@@ -17,8 +17,8 @@ class ConversorCLI {
         echo "Escolha a unidade que quer converter: ";
     }
 
-    public function exibirConversoesSuportadas($unidade) {
-        $this->conversor = ConversorFactory::criarConversor($unidade);
+    public function exibirConversoesSuportadas($grandeza) {
+        $this->conversor = ConversorFactory::criarConversor($grandeza);
         $conversoes = $this->conversor->getConversoesSuportadas();
     
         $i = 0;
@@ -41,15 +41,16 @@ class ConversorCLI {
         $valor = trim(fgets(STDIN));
 
         $resultado = $this->conversor->converter($valor, $de, $para);
-        echo "Resultado da conversão de $de para $para: $resultado\n";
+        echo "Resultado da conversão de $de para $para: ";
+        echo colorize("$resultado", "1;34");
     }
 
     private function exibirMenuInterativo() {
         while (true) {
             $this->exibirMenu();
-            $unidade = trim(fgets(STDIN));
+            $grandeza = trim(fgets(STDIN));
         
-            switch ($unidade) {
+            switch ($grandeza) {
                 case 1:
                     $this->exibirConversoesSuportadas("comprimento");
                     $escolha = trim(fgets(STDIN));
@@ -102,11 +103,6 @@ class ConversorCLI {
         }
     }
 
-    public function listarConversoes($grandeza) {
-        $conversor = ConversorFactory::criarConversor($grandeza);
-        return $conversor->getConversoesSuportadas();
-    }
-
     public function run() {
         global $argv, $argc;
 
@@ -135,7 +131,8 @@ class ConversorCLI {
 
                     try {
                         $resultado = $this->conversor->converter($valor, $de, $para);
-                        echo "Resultado da conversão de $de para $para: $resultado\n";
+                        echo "Resultado da conversão de $de para $para: ";
+                        echo colorize("$resultado", "1;34");
                     } catch(Exception $e) {
                         echo "Erro ao converter: " . $e->getMessage() . "\n";
                         exit(1);
@@ -147,24 +144,24 @@ class ConversorCLI {
                 case 'listar':
                     if ($argc < 3) {
                         echo "Uso: php conversor.php listar [grandeza]\n";
-                        echo "Exemplo: php conversor.php converter temperatura c f 30\n";
+                        echo "Exemplo: php conversor.php listar temperatura\n";
                         exit(1);
                     }
 
-                    $grandeza = $argv[3];
-                    
-                    $conversoes = $this->listarConversoes($grandeza);
+                    $grandeza = $argv[2];
 
-                    foreach($conversoes as $conversao) {
-                        echo $conversao;
-                    }
+                    $conversor = ConversorFactory::criarConversor($grandeza);
+                    $conversoes = $conversor->getConversoesSuportadas();
+                    
+                    print_r($conversoes);
 
                     break;
 
                 default:
                     echo "Comando '$comando' não reconhecido.\n";
                     echo "Comandos disponíveis:\n";
-                    echo " converter [grandeza] [de] [para] [valor]\n";
+                    echo " - converter [grandeza] [de] [para] [valor]\n";
+                    echo " - listar [grandeza]\n";
                     exit(1);
             }
         } else {
