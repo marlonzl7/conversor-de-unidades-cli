@@ -94,7 +94,7 @@ class ConversorCLI {
                     break; 
         
                 case 7:
-                    echo "Saindo...";
+                    echo "Saindo...\n";
                     exit;
         
                 default:
