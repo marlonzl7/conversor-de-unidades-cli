@@ -1,6 +1,10 @@
 # CHANGELOG.md
 
-## [0.1.1] - 2025-02-16
+## [0.3.0] - 2025-02-16
+### Melhorias
+- Adicionado suporte aos comando help e version
+
+## [0.2.0] - 2025-02-16
 ### Melhorias
 - Melhorias na função exibirMenuInterativo()
 - Tratamento de erros de conversão
