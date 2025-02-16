@@ -151,7 +151,7 @@ class ConversorCLI {
                         exit(1);
                     }
 
-                    $grandeza = $argv[3];
+                    $grandeza = $argv[2];
                     
                     $conversoes = $this->listarConversoes($grandeza);
 
