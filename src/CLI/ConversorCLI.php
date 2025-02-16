@@ -109,6 +109,14 @@ class ConversorCLI {
             $comando = $argv[1];
 
             switch ($comando) {
+                case '--help':
+                case '-h':
+                    $this->exibirHelp();
+                    exit(0);
+                case '--version':
+                case '-v':
+                    echo "";
+                    exit(0);
                 case 'converter':
                     if ($argc < 6) {
                         echo "Uso: php conversor.php converter [grandeza] [de] [para] [valor]\n";
