@@ -14,20 +14,39 @@ class ConversorCLI {
         echo "[5] Velocidade\n";
         echo "[6] Volume\n";
         echo "[7] Sair\n";
-        echo "Escolha a unidade que quer converter: ";
+        echo "Escolha a unidade que quer converter (1-7): ";
+    }
+
+    public function exibirConversoesPorUnidade($unidade) {
+        $unidades = [
+            1 => "comprimento",
+            2 => "massa",
+            3 => "temperatura",
+            4 => "tempo",
+            5 => "velocidade",
+            6 => "volume",
+        ];
+
+        if (isset($unidades[$unidade])) {
+            $this->exibirConversoesSuportadas($unidades[$unidade]);
+            $escolha = trim(fgets(STDIN));
+            $this->realizarConversao($escolha);
+        } else {
+            echo "Unidade inválida.\n";
+        }
+        
     }
 
     public function exibirConversoesSuportadas($unidade) {
         $this->conversor = ConversorFactory::criarConversor($unidade);
         $conversoes = $this->conversor->getConversoesSuportadas();
-    
-        $i = 0;
-                
+        
+        echo "Escolha uma conversão:\n";
         foreach ($conversoes as $i => $conversao) {
             echo "[$i] $conversao\n";
         };
         
-        echo "Infome a conversão que deseja fazer: ";
+        echo "Infome a conversão que deseja realizar: ";
     }
 
     public function realizarConversao($escolha) {
@@ -40,8 +59,16 @@ class ConversorCLI {
         echo "Digite o valor que deseja converter: ";
         $valor = trim(fgets(STDIN));
 
-        $resultado = $this->conversor->converter($valor, $de, $para);
-        echo "Resultado da conversão de $de para $para: $resultado\n";
+        if (!$this->validarValor($valor)) {
+            return;
+        }
+
+        try {
+            $resultado = $this->conversor->converter($valor, $de, $para);
+            echo "Resultado da conversão de $de para $para: $resultado\n";
+        } catch (Exception $e) {
+            echo "Erro ao realizar a conversão: " . $e->getMessage() . "\n";
+        }
     }
 
     private function exibirMenuInterativo() {
@@ -49,62 +76,30 @@ class ConversorCLI {
             $this->exibirMenu();
             $unidade = trim(fgets(STDIN));
         
-            switch ($unidade) {
-                case 1:
-                    $this->exibirConversoesSuportadas("comprimento");
-                    $escolha = trim(fgets(STDIN));
-                    $this->realizarConversao($escolha);
-
-                    break;
-                
-                case 2:
-                    $this->exibirConversoesSuportadas("massa");
-                    $escolha = trim(fgets(STDIN));
-                    $this->realizarConversao($escolha);
-
-                    break;
-        
-                case 3:
-                    $this->exibirConversoesSuportadas("temperatura");
-                    $escolha = trim(fgets(STDIN));
-                    $this->realizarConversao($escolha);
-                    
-                    break;
-        
-                case 4:
-                    $this->exibirConversoesSuportadas("tempo");
-                    $escolha = trim(fgets(STDIN));
-                    $this->realizarConversao($escolha);
-
-                    break;
-        
-                case 5:
-                    $this->exibirConversoesSuportadas("velocidade");
-                    $escolha = trim(fgets(STDIN));
-                    $this->realizarConversao($escolha);
-
-                    break;
-        
-                case 6:
-                    $this->exibirConversoesSuportadas("volume");
-                    $escolha = trim(fgets(STDIN));
-                    $this->realizarConversao($escolha);
-                    
-                    break; 
-        
-                case 7:
-                    echo "Saindo...";
-                    exit;
-        
-                default:
-                    echo "Opção inválida";
+            if ($unidade == 7) {
+                echo "Saindo...\n";
+                exit;
             }
+
+            $this->exibirConversoesPorUnidade($unidade);
+
         }
     }
 
     public function listarConversoes($grandeza) {
         $conversor = ConversorFactory::criarConversor($grandeza);
         return $conversor->getConversoesSuportadas();
+    }
+
+    public function exibirHelp() {
+        echo "Comandos disponíveis:\n";
+        echo "  converter [grandeza] [de] [para] [valor] - Realiza a conversão de uma unidade\n";
+        echo "  listar [grandeza] - Lista as conversões suportadas para uma grandeza\n";
+        echo "  help - Exibe essa ajuda\n";
+        echo "Exemplos:\n";
+        echo "  php conversor.php converter temperatura celsius fahrenheit 30\n";
+        echo "  php conversor.php listar comprimento\n";
+        echo "  php conversor.php help\n";
     }
 
     public function run() {

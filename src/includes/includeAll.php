@@ -8,3 +8,4 @@ require_once (__DIR__ . '/../classes/ConversorTemperatura.php');
 require_once (__DIR__ . '/../classes/ConversorTempo.php');
 require_once (__DIR__ . '/../classes/ConversorVelocidade.php');
 require_once (__DIR__ . '/../classes/ConversorVolume.php');
+require_once (__DIR__ . '/../utils/validates.php');
