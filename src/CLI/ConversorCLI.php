@@ -156,7 +156,7 @@ class ConversorCLI {
                     $conversoes = $this->listarConversoes($grandeza);
 
                     foreach($conversoes as $conversao) {
-                        echo $conversao;
+                        echo $conversao . "\n";
                     }
 
                     break;
